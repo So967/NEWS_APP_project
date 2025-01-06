@@ -1,12 +1,14 @@
-const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8"; // Replace with your NewsAPI key
+const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
 const API_URL = "https://newsapi.org/v2/everything?q=";
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"; // CORS proxy for bypassing restrictions
+const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
 let currentSelectedNav = null;
 
 async function fetchNews(query) {
   try {
-    const response = await fetch(`${CORS_PROXY}${API_URL}${query}&apiKey=${API_KEY}`);
+    const response = await fetch(
+      `${CORS_PROXY}${API_URL}${query}&apiKey=${API_KEY}`
+    );
     if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
     const data = await response.json();
     if (data.articles.length === 0) {
@@ -24,7 +26,6 @@ function bindData(articles) {
   const cardsContainer = document.getElementById("cardscontainer");
   const newsCardTemplate = document.getElementById("template-news-card");
 
-  // Clear existing news cards
   cardsContainer.innerHTML = "";
 
   articles.forEach((article) => {
@@ -39,7 +40,9 @@ function bindData(articles) {
     newsImg.src = article.urlToImage || "https://via.placeholder.com/400x200";
     newsTitle.textContent = article.title || "No title available";
     newsDesc.textContent = article.description || "No description available.";
-    newsSource.textContent = `${article.source.name} · ${new Date(article.publishedAt).toLocaleDateString()}`;
+    newsSource.textContent = `${article.source.name} · ${new Date(
+      article.publishedAt
+    ).toLocaleDateString()}`;
 
     cardClone.querySelector(".card").addEventListener("click", () => {
       window.open(article.url, "_blank");
@@ -57,7 +60,6 @@ function onNavItemClick(id) {
   currentSelectedNav.classList.add("active");
 }
 
-// Event listener for search functionality
 document.getElementById("search-button").addEventListener("click", () => {
   const query = document.getElementById("search-text").value.trim();
   if (!query) {
@@ -69,7 +71,7 @@ document.getElementById("search-button").addEventListener("click", () => {
   currentSelectedNav = null;
 });
 
-// Fetch default news on page load
 window.addEventListener("load", () => fetchNews("Technology"));
+
 
 
