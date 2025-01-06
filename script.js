@@ -1,6 +1,5 @@
 const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
 const url="https://newsapi.org/v2/everything?q=tesla&from=2024-12-04&sortBy=publishedAt&apiKey=";
-window.addEventListener("load", () => fetchNews("Technology"));
 
 async function fetchNews(query) {
   const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
@@ -8,20 +7,7 @@ async function fetchNews(query) {
   bindData(data.articles);
 }
 
-function bindData(articles) {
-  const cardsContainer = document.getElementById("cardscontainer");
-  const newsCardTemplate = document.getElementById("template-news-card");
-
-  cardsContainer.innerHTML = "";
-
-  articles.forEach((article) => {
-    if (!article.urlToImage) return;
-
-    const cardClone = newsCardTemplate.content.cloneNode(true);
-    fillDataInCard(cardClone, article);
-    cardsContainer.appendChild(cardClone);
-  });
-}
+window.addEventListener("load", () => fetchNews("Technology"));
 
 function fillDataInCard(cardClone, article) {
   const newsImg = cardClone.querySelector("#news-img");
@@ -41,6 +27,21 @@ function fillDataInCard(cardClone, article) {
 
   cardClone.firstElementChild.addEventListener("click", () => {
     window.open(article.url, "_blank");
+  });
+}
+
+function bindData(articles) {
+  const cardsContainer = document.getElementById("cardscontainer");
+  const newsCardTemplate = document.getElementById("template-news-card");
+
+  cardsContainer.innerHTML = "";
+
+  articles.forEach((article) => {
+    if (!article.urlToImage) return;
+
+    const cardClone = newsCardTemplate.content.cloneNode(true);
+    fillDataInCard(cardClone, article);
+    cardsContainer.appendChild(cardClone);
   });
 }
 
