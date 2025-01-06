@@ -1,34 +1,21 @@
-const fetch = require("node-fetch");
-const app = express();
-
+const CORS_PROXY = "https://api.allorigins.win/get?url=";
 const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
-const BASE_URL = "https://newsapi.org/v2/everything?q=";
-
-app.get("/news", async (req, res) => {
-  const query = req.query.q;
-  if (!query) {
-    return res.status(400).json({ error: "Query parameter 'q' is required" });
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}${query}&apiKey=${API_KEY}`);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch news" });
-  }
-});
-
-app.listen(3000, () => {
-  console.log("Proxy server running on port 3000");
-});
-
-const url = "https://your-proxy-server.com/news?q=";
+const url = "https://newsapi.org/v2/everything?q=";
 
 async function fetchNews(query) {
-  const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
-  const data = await res.json();
-  bindData(data.articles);
+  const proxyUrl = `${CORS_PROXY}${encodeURIComponent(
+    url + query + "&apiKey=" + API_KEY
+  )}`;
+
+  try {
+    const res = await fetch(proxyUrl);
+    const data = await res.json();
+    const articles = JSON.parse(data.contents).articles;
+    bindData(articles);
+  } catch (error) {
+    console.error("Failed to fetch news:", error);
+    alert("Could not fetch news. Please try again later.");
+  }
 }
 
 window.addEventListener("load", () => fetchNews("Technology"));
