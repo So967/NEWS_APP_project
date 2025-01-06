@@ -1,5 +1,5 @@
 const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
-const url="https://newsapi.org/v2/everything?q=tesla&from=2024-12-04&sortBy=publishedAt&apiKey=";
+const url="https://newsapi.org/v2/everything?q=";
 
 async function fetchNews(query) {
   const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
