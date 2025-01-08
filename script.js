@@ -1,12 +1,13 @@
 const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
-const API_URL = "https://mammoth-necessary-carob.glitch.me/news/";
+const API_URL = "https://newsapi.org/v2/everything?q=";
+const CORS_PROXY= "https://mammoth-necessary-carob.glitch.me/news/";
 
 let currentSelectedNav = null;
 
 async function fetchNews(query) {
   try {
     const response = await fetch(
-      `${API_URL}${query}&apiKey=${API_KEY}`
+      `${CORS_PROXY}${API_URL}${query}&apiKey=${API_KEY}`
     );
     if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
     const data = await response.json();
