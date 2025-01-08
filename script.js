@@ -75,3 +75,4 @@ window.addEventListener("load", () => fetchNews("Technology"));
 
 
 
+
