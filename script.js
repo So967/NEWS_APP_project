@@ -6,7 +6,7 @@ let currentSelectedNav = null;
 async function fetchNews(query) {
   try {
     const response = await fetch(
-      `${CORS_PROXY}${API_URL}${query}&apiKey=${API_KEY}`
+      `${API_URL}${query}&apiKey=${API_KEY}`
     );
     if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
     const data = await response.json();
