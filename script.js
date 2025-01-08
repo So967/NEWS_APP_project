@@ -1,5 +1,5 @@
 const API_KEY = "b2f655a2b2174b0e94e4c039c23df2c8";
-const API_URL = "https://mammoth-necessary-carob.glitch.me/news/";
+const API_URL = "https://mammoth-necessary-carob.glitch.me/";
 
 let currentSelectedNav = null;
 
